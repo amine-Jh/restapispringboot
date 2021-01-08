@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 
 
@@ -28,12 +30,24 @@ public class User {
 
   protected String name;
   
+  @JsonIgnore
   protected String password;
   
   
   protected String email;
+  protected String telephone;
 
-  protected String username;
+  public String getTelephone() {
+	return telephone;
+}
+
+
+
+public void setTelephone(String telephone) {
+	this.telephone = telephone;
+}
+
+protected String username;
   
   
   public String getUsername() {
@@ -48,11 +62,11 @@ public void setUsername(String username) {
 
 
 
-public User() {}
-  
+
+  public User () {}
 
 
-  public User( String name, String password, String email, String role,String username) {
+  public User( String name, String password, String email,String username) {
 	
 	this.name = name;
 	this.password = password;

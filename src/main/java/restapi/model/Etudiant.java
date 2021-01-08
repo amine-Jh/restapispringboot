@@ -22,14 +22,14 @@ public class Etudiant extends User {
 	
  
 	 
-	  
-	public Etudiant() {}
+	  public Etudiant() {}
+
 	
-	public Etudiant(String name, String password, String email, String filliere,String username,String annee, String role) {
-		super(name, password, email,role,username);
+	public Etudiant(String name, String password, String email, String filliere,String username,String annee,String telephone) {
+		super(name, password, email,username);
 		this.setFilliere(filliere);
 		this.setAnnee(annee);
-		
+		this.setTelephone(telephone);
 		
 		// TODO Auto-generated constructor stub
 	}

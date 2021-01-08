@@ -40,8 +40,9 @@ public class EtudiantController {
   // end::get-aggregate-root[]
 
   @PostMapping("/etudiants")
-  User newEmployee(@RequestBody Etudiant newEmployee) {
-    return repository.save(newEmployee);
+  User newEmployee(@RequestBody Etudiant newEtudiant) {
+	  
+    return repository.save(newEtudiant);
   }
 
   // Single item
