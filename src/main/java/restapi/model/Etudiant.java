@@ -1,12 +1,21 @@
 package restapi.model;
 
 
+import java.util.HashSet;
 import java.util.Objects;
 
 
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+
+import org.hibernate.annotations.ManyToAny;
+
+import java.util.Set;
 
 
 @Entity
@@ -20,11 +29,13 @@ public class Etudiant extends User {
 	
 	
 	
- 
+	
 	 
 	  public Etudiant() {}
 
 	
+
+
 	public Etudiant(String name, String password, String email, String filliere,String username,String annee,String telephone) {
 		super(name, password, email,username);
 		this.setFilliere(filliere);

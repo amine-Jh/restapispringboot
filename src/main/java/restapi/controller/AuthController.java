@@ -3,8 +3,10 @@ package restapi.controller;
 
 
 import restapi.details.UserDetailsImpl;
+import restapi.model.Company;
 import restapi.model.Etudiant;
 import restapi.model.User;
+import restapi.payload.CompanySignup;
 import restapi.payload.JwtResponse;
 import restapi.payload.LoginRequest;
 import restapi.payload.MessageResponse;
@@ -128,6 +130,33 @@ public class AuthController {
 		return ResponseEntity
 				.ok()
 				.body(new MessageResponse("Welcome : New Etudiant inscrit !")) ;  
+		
+		
+}
+	
+	@PostMapping("/signupCompany")
+	public ResponseEntity<?> registerCompany(@RequestBody CompanySignup signUpRequest) {
+		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
+			return ResponseEntity
+					.ok()
+					.body(new MessageResponse("Error:  username est deja utilisé  "));
+		}
+
+		if (userRepository.existsByEmail(signUpRequest.getEmail())) {
+			return ResponseEntity
+					.ok()
+					.body(new MessageResponse("Error:  Email déja utilisé"));
+		}
+
+		// Create new Company account 
+		 Company user= new Company(signUpRequest.getName(),encoder.encode(signUpRequest.getPassword()), signUpRequest.getEmail(), signUpRequest.getUsername() ,
+				 signUpRequest.getAdresse()   , signUpRequest.getType(), signUpRequest.getTelephone());
+		 
+		 
+		userRepository.save(user);
+		return ResponseEntity
+				.ok()
+				.body(new MessageResponse("Welcome : New Company inscrit !")) ;  
 		
 		
 }

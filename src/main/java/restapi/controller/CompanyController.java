@@ -1,8 +1,6 @@
 package restapi.controller;
 
-
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,49 +13,52 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import restapi.exception.UserNotFoundException;
-import restapi.model.Etudiant;
-import restapi.model.User;
-import restapi.repository.EtudiantRepository;
+import restapi.model.Company;
+
+import restapi.repository.CompanyRepository;
+
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/resources")
-public class EtudiantController {
-	
 
-@Autowired
-  private final EtudiantRepository repository;
+public class CompanyController {	
 
-  EtudiantController(EtudiantRepository repository) {
-    this.repository = repository;
-  }
+	@Autowired
+private final CompanyRepository repository ;
+
+ 
 
 
-  // Aggregate root
+  public CompanyController(CompanyRepository repository) {
+		this.repository = repository;
+	}
+
+// Aggregate root
   // tag::get-aggregate-root[]
-  @GetMapping("/etudiants")
-  List<Etudiant> all() {
-    return (List<Etudiant>) repository.findAll();
+  @GetMapping("/companies")
+  List<Company> all() {
+    return (List<Company>) repository.findAll();
   }
   // end::get-aggregate-root[]
 
-  @PostMapping("/etudiants")
-  User newEmployee(@RequestBody Etudiant newEtudiant) {
+  @PostMapping("/companies")
+  Company newCompany(@RequestBody Company newCompany) {
 	  
-    return repository.save(newEtudiant);
+    return repository.save(newCompany);
   }
 
   // Single item
 
-  @GetMapping("/etudiants/{id}")
-  Etudiant one(@PathVariable Long id) {
+  @GetMapping("/companies/{id}")
+  Company Getone(@PathVariable Long id) {
 
     return repository.findById(id)
       .orElseThrow(() -> new UserNotFoundException(id));
   }
 
-  @PutMapping("/etudiants/{id}")
-  User replaceEmployee(@RequestBody Etudiant newEmployee, @PathVariable Long id) {
+  @PutMapping("/companies/{id}")
+  Company replaceCompany(@RequestBody Company newEmployee, @PathVariable Long id) {
 
     return repository.findById(id)
       .map(employee -> {
@@ -72,8 +73,8 @@ public class EtudiantController {
       });
   }
 
-  @DeleteMapping("/etudiants/{id}")
-  void deleteEtudiant(@PathVariable Long id) {
+  @DeleteMapping("/companies/{id}")
+  void deleteCompany(@PathVariable Long id) {
     repository.deleteById(id);
   }
 
