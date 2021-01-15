@@ -1,7 +1,5 @@
 package restapi.payload;
 
-import java.util.Set;
-
  
 public class SignupRequest {
  

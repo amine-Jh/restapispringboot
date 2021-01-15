@@ -16,6 +16,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -24,9 +25,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
+@Table(name = "users")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn( name="role",discriminatorType = DiscriminatorType.STRING)
-@DiscriminatorValue("user")
+@DiscriminatorColumn( name="state",discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorValue("1")
 
 public class User {
   
@@ -41,12 +43,22 @@ public class User {
   
   
   @ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(	name = "user_roles", 
+	@JoinTable(	name = "users_roles", 
 				joinColumns = @JoinColumn(name = "user_id"), 
 				inverseJoinColumns = @JoinColumn(name = "role_id"))
 				private Set <Role> roles = new HashSet<>();   
   
-  protected String email;
+  public Set<Role> getRoles() {
+	return roles;
+}
+
+
+
+public void setRoles(Set<Role> roles) {
+	this.roles = roles;
+}
+
+protected String email;
   protected String telephone;
 
   public String getTelephone() {

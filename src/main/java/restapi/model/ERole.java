@@ -2,8 +2,8 @@ package restapi.model;
 
 public enum ERole {
 	
-	ETUDIANT,
-   COMPANY,
-   ADMIN
+	ROLE_ETUDIANT,
+   ROLE_COMPANY,
+   ROLE_ADMIN
 
 }

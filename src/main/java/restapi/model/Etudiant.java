@@ -19,7 +19,7 @@ import java.util.Set;
 
 
 @Entity
-@DiscriminatorValue("etudiant")
+@DiscriminatorValue("2")
 public class Etudiant extends User {
 	
 	

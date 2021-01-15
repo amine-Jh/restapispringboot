@@ -1,5 +1,6 @@
 package restapi.payload;
 
+import java.util.Set;
 public class StudentSignup {
 
 	
@@ -10,7 +11,19 @@ public class StudentSignup {
     
     private String telephone;
     
-    public String getTelephone() {
+    Set<String> roles ;
+    
+   
+
+	public Set<String> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<String> roles) {
+		this.roles = roles;
+	}
+
+	public String getTelephone() {
 		return telephone;
 	}
 

@@ -2,6 +2,7 @@ package restapi.controller;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +23,7 @@ import restapi.repository.CompanyRepository;
 @RestController
 @RequestMapping("/resources")
 
+@PreAuthorize("hasRole('ADMIN')   or hasRole('ETUDIANT ') or hasRole('COMPANY')")
 public class CompanyController {	
 
 	@Autowired
@@ -34,13 +36,13 @@ private final CompanyRepository repository ;
 		this.repository = repository;
 	}
 
-// Aggregate root
-  // tag::get-aggregate-root[]
+
   @GetMapping("/companies")
   List<Company> all() {
     return (List<Company>) repository.findAll();
   }
-  // end::get-aggregate-root[]
+  
+  
 
   @PostMapping("/companies")
   Company newCompany(@RequestBody Company newCompany) {
@@ -48,7 +50,7 @@ private final CompanyRepository repository ;
     return repository.save(newCompany);
   }
 
-  // Single item
+
 
   @GetMapping("/companies/{id}")
   Company Getone(@PathVariable Long id) {

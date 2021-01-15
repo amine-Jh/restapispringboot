@@ -1,5 +1,7 @@
 package restapi.payload;
 
+import java.util.Set;
+
 public class CompanySignup {
 
 	
@@ -22,7 +24,17 @@ public class CompanySignup {
 	   
 	   
 	  
+		  Set<String> roles ;
+		    
+		   
 
+			public Set<String> getRoles() {
+				return roles;
+			}
+
+			public void setRoles(Set<String> roles) {
+				this.roles = roles;
+			}
 		
 
 
@@ -40,7 +52,7 @@ public class CompanySignup {
 		}
 
 		public CompanySignup(String username, String adresse, String telephone, String type, String email, String name,
-				String password) {
+				String password ,Set<String>  roles  ) {
 			this.username = username;
 			this.adresse = adresse;
 			this.telephone = telephone;
@@ -48,6 +60,7 @@ public class CompanySignup {
 			this.email = email;
 			this.name = name;
 			this.password = password;
+			this.roles=roles;
 		}
 
 		public String getType() {

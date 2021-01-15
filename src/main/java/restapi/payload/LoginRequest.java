@@ -5,7 +5,7 @@ package restapi.payload;
 public class LoginRequest {
 	
 	
-	private String email;
+
     private String password;
     private String username;
 	
@@ -17,13 +17,7 @@ public class LoginRequest {
 		this.username = username;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
+	
 
 	
 

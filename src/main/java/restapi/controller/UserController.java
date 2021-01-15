@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import restapi.exception.UserNotFoundException;
@@ -21,7 +21,7 @@ import restapi.repository.UserRepository;
 
 
 @RestController
-
+@RequestMapping("/resources")
 class UserController {
 
 @Autowired
@@ -36,7 +36,7 @@ class UserController {
   // Aggregate root
   // tag::get-aggregate-root[]
   @GetMapping("/users")
-  @PreAuthorize("isAuthenticated()")
+  
   List<User> all() {
     return (List<User>) repository.findAll();
   }

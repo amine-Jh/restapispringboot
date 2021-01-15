@@ -4,6 +4,7 @@ package restapi.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +23,9 @@ import restapi.repository.EtudiantRepository;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/resources")
+
+
+@PreAuthorize("hasRole('ADMIN')  or hasRole('ETUDIANT') ")
 public class EtudiantController {
 	
 
@@ -35,7 +39,10 @@ public class EtudiantController {
 
   // Aggregate root
   // tag::get-aggregate-root[]
+  
   @GetMapping("/etudiants")
+  
+  
   List<Etudiant> all() {
     return (List<Etudiant>) repository.findAll();
   }
