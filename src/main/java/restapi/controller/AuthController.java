@@ -14,7 +14,7 @@ import restapi.payload.SignupRequest;
 import restapi.payload.StudentSignup;
 import restapi.repository.*;
 import restapi.security.*;
-
+import restapi.services.EmailSenderService;
 import restapi.model.*;
 import java.util.HashSet;
 import java.util.List;
@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -48,7 +49,15 @@ public class AuthController {
 	@Autowired
 	UserRepository userRepository;
 
-
+	/***
+	 * email services injection
+	 */
+	@Autowired
+    private ConfirmationTokenRepository confirmationTokenRepository;
+	
+	
+	@Autowired
+    private EmailSenderService emailSenderService;
 
 	@Autowired
 	PasswordEncoder encoder;
@@ -134,7 +143,7 @@ public class AuthController {
 					.body(new MessageResponse("Error:  Email déja utilisé"));
 		}
 
-		// Create new user's account
+		// Create new Student's account
 		 Etudiant user= new Etudiant( signUpRequest.getName() , encoder.encode(signUpRequest.getPassword()) ,signUpRequest.getEmail(),
 				 signUpRequest.getFilliere() ,signUpRequest.getUsername(), signUpRequest.getAnnee(),signUpRequest.getTelephone()
 				 );
@@ -171,6 +180,22 @@ public class AuthController {
 
 			user.setRoles(roles);
 			userRepository.save(user);
+			
+			/**
+			ConfirmationToken confirmationToken = new ConfirmationToken(user);
+
+            confirmationTokenRepository.save(confirmationToken);
+
+            SimpleMailMessage mailMessage = new SimpleMailMessage();
+            mailMessage.setTo(user.getEmail());
+            mailMessage.setSubject("Complete Registration!");
+            mailMessage.setFrom("chand312902@gmail.com");
+            mailMessage.setText("To confirm your account, please click here : "
+            +"http://localhost:8082/confirm-account?token="+confirmationToken.getConfirmationToken());
+
+            emailSenderService.sendEmail(mailMessage);
+			**/
+			
 
 		userRepository.save(user);
 		return ResponseEntity
@@ -228,7 +253,22 @@ public class AuthController {
 					}
 				});
 			}
+				
+			/**
+			ConfirmationToken confirmationToken = new ConfirmationToken(user);
 
+            confirmationTokenRepository.save(confirmationToken);
+
+            SimpleMailMessage mailMessage = new SimpleMailMessage();
+            mailMessage.setTo(user.getEmail());
+            mailMessage.setSubject("Complete Registration!");
+            mailMessage.setFrom("chand312902@gmail.com");
+            mailMessage.setText("To confirm your account, please click here : "
+            +"http://localhost:8082/confirm-account?token="+confirmationToken.getConfirmationToken());
+
+            emailSenderService.sendEmail(mailMessage);
+			**/
+			
 			user.setRoles(roles);
 		userRepository.save(user);
 		return ResponseEntity
