@@ -2,17 +2,18 @@ package restapi.model;
 
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
-
-
-
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import org.hibernate.annotations.ManyToAny;
 
 import java.util.Set;
@@ -27,11 +28,31 @@ public class Etudiant extends User {
 	
 	private String annee;
 	
-	
-	
-	
-	 
-	  public Etudiant() {}
+	@ManyToMany
+	@JoinTable(
+	  name = "postuler", 
+	  joinColumns = @JoinColumn(name = "student_id"), 
+	  inverseJoinColumns = @JoinColumn(name = "company_id"))
+	  Set<Company> companies;
+
+
+
+
+	public Set<Company> getCompanies() {
+		return companies;
+	}
+
+
+
+
+	public void setCompanies(Set<Company> companies) {
+		this.companies = companies;
+	}
+
+
+
+
+	public Etudiant() {}
 
 	
 

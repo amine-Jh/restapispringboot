@@ -18,6 +18,7 @@ import restapi.services.EmailSenderService;
 import restapi.model.*;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import java.util.stream.Collectors;
@@ -48,6 +49,9 @@ public class AuthController {
 
 	@Autowired
 	UserRepository userRepository;
+	
+	@Autowired
+	CompanyRepository companyRepository;
 
 	/***
 	 * email services injection
@@ -117,8 +121,7 @@ public class AuthController {
 
 		// Create new user's account
 		User user = new User(signUpRequest.getName(),encoder.encode(signUpRequest.getPassword()) , 
-							 signUpRequest.getEmail(),signUpRequest.getUsername()
-							  );
+							 signUpRequest.getEmail(),signUpRequest.getUsername());
 
 		userRepository.save(user);
 		return ResponseEntity
@@ -150,7 +153,17 @@ public class AuthController {
 		 
 		 Set<String> strRoles = signUpRequest.getRoles();
 			Set<Role> roles = new HashSet<>();
-
+			
+			Set<Company> companies = new HashSet<>();
+			long idu =23;
+			 companies.add(companyRepository.findById(idu).get()    );
+			 
+			 
+			 
+			user.setCompanies(companies);
+			
+			
+			
 			if (strRoles == null) {
 				Role userRole = roleRepository.findByName(ERole.ROLE_ETUDIANT)
 						.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
@@ -177,8 +190,11 @@ public class AuthController {
 					}
 				});
 			}
-
+			
+			
+			
 			user.setRoles(roles);
+			
 			userRepository.save(user);
 			
 			/**
@@ -269,7 +285,7 @@ public class AuthController {
             emailSenderService.sendEmail(mailMessage);
 			**/
 			
-			user.setRoles(roles);
+		user.setRoles(roles);
 		userRepository.save(user);
 		return ResponseEntity
 				.ok()

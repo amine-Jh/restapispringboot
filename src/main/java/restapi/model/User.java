@@ -49,13 +49,10 @@ public class User {
 				private Set <Role> roles = new HashSet<>(); 
   
   
-  @ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(	name = "etudiant_companies", 
-				joinColumns = @JoinColumn(name = "student_id"), 
-				inverseJoinColumns = @JoinColumn(name = "company_id"))
-				private Set <Company> companies = new HashSet<>(); 
-  
-  public Set<Role> getRoles() {
+
+
+
+public Set<Role> getRoles() {
 	return roles;
 }
 

@@ -1,7 +1,19 @@
 package restapi.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 
 @Entity
 @DiscriminatorValue("3")
@@ -12,6 +24,14 @@ public class Company  extends User {
 	private String type;
 	
 	private String telephone;
+	
+	
+	
+	@ManyToMany(mappedBy = "companies")
+	Set<Etudiant> etudiants;
+	
+	
+	
 
 	public String getAdresse() {
 		return adresse;
