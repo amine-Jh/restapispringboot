@@ -23,7 +23,7 @@ import restapi.repository.CompanyRepository;
 @RestController
 @RequestMapping("/resources")
 
-@PreAuthorize("hasRole('ADMIN')   or hasRole('ETUDIANT') ")
+@PreAuthorize("hasRole('ADMIN')   or hasRole('ETUDIANT') or hasRole('COMPANY') ")
 public class CompanyController {	
 
 	@Autowired

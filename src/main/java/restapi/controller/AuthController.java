@@ -154,13 +154,8 @@ public class AuthController {
 		 Set<String> strRoles = signUpRequest.getRoles();
 			Set<Role> roles = new HashSet<>();
 			
-			Set<Company> companies = new HashSet<>();
-			long idu =23;
-			 companies.add(companyRepository.findById(idu).get()    );
-			 
-			 
-			 
-			user.setCompanies(companies);
+			
+		
 			
 			
 			
