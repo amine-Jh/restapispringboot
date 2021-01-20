@@ -1,26 +1,27 @@
 package restapi.model;
 
 
-import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
-import javax.persistence.CascadeType;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import org.hibernate.annotations.ManyToAny;
+
+
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import java.util.Set;
 
 
 @Entity
 @DiscriminatorValue("2")
+
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="@id")
 public class Etudiant extends User {
 	
 	

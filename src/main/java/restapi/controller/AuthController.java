@@ -18,14 +18,13 @@ import restapi.services.EmailSenderService;
 import restapi.model.*;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
+
 import java.util.Set;
 
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

@@ -30,7 +30,7 @@ import restapi.repository.EtudiantRepository;
 @RequestMapping("/resources")
 
 
-@PreAuthorize("hasRole('ADMIN')  or hasRole('ETUDIANT') ")
+@PreAuthorize("hasRole('ADMIN')  or hasRole('ETUDIANT')")
 public class EtudiantController {
 	
 
@@ -70,11 +70,11 @@ private final CompanyRepository crepository;
   @PostMapping("/postuler/{ids}/company/{id}")
   Etudiant Getcompany(   @PathVariable  Long ids,  @PathVariable  Long id ) {
 	  	
-	  System.out.println("*****"+  ids);
+	  
 	   Etudiant nn= repository.findById(ids).orElseThrow(() -> new UserNotFoundException(id))   ;
 	  Company mm= crepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
 	  
-	   System.out.println("thats ---- "+ nn.toString() );
+	  
 	   
 	   nn.getCompanies().add(mm);
 	   System.out.println(nn.getCompanies().toString());
@@ -88,14 +88,10 @@ private final CompanyRepository crepository;
   @PostMapping("/depostuler/{ids}/company/{id}")
   Etudiant depostuler(   @PathVariable  Long ids,  @PathVariable  Long id ) {
 	  	
-	  System.out.println("*****"+  ids);
-	   Etudiant nn= repository.findById(ids).orElseThrow(() -> new UserNotFoundException(id))   ;
+	 
+	  Etudiant nn= repository.findById(ids).orElseThrow(() -> new UserNotFoundException(id))   ;
 	  Company mm= crepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
-	  
-	   System.out.println("thats ---- "+ nn.toString() );
-	   
-	   nn.getCompanies().remove(mm);
-	   System.out.println(nn.getCompanies().toString());
+	  nn.getCompanies().remove(mm);
 	   repository.save(nn);
 	  
 	     

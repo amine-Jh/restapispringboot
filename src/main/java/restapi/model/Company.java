@@ -14,6 +14,9 @@ import javax.persistence.ManyToOne;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 
 @Entity
 @DiscriminatorValue("3")
@@ -27,11 +30,22 @@ public class Company  extends User {
 	
 	
 	
+	
+	
 	@ManyToMany(mappedBy = "companies")
+	
 	Set<Etudiant> etudiants;
 	
 	
 	
+
+	public Set<Etudiant> getEtudiants() {
+		return etudiants;
+	}
+
+	public void setEtudiants(Set<Etudiant> etudiants) {
+		this.etudiants = etudiants;
+	}
 
 	public String getAdresse() {
 		return adresse;
