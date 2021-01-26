@@ -1,18 +1,20 @@
 package restapi.model;
 
 
+import java.util.HashSet;
 import java.util.Objects;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
-
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import java.util.Set;
@@ -21,7 +23,6 @@ import java.util.Set;
 @Entity
 @DiscriminatorValue("2")
 
-@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="@id")
 public class Etudiant extends User {
 	
 	
@@ -29,12 +30,15 @@ public class Etudiant extends User {
 	
 	private String annee;
 	
-	@ManyToMany
-	@JoinTable(
-	  name = "postuler", 
-	  joinColumns = @JoinColumn(name = "student_id"), 
-	  inverseJoinColumns = @JoinColumn(name = "company_id"))
-	  Set<Company> companies;
+	  
+	  
+	  @ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(	name = "postuler", 
+					joinColumns = @JoinColumn(name = "student_id"), 
+					inverseJoinColumns = @JoinColumn(name = "company_id"))
+	  @JsonIgnoreProperties("etudiants")
+					private Set <Company> companies ;
+	 
 
 
 

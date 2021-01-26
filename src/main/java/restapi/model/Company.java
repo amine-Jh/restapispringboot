@@ -1,13 +1,12 @@
 package restapi.model;
 
+
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
+
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
@@ -15,11 +14,16 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 
 @Entity
 @DiscriminatorValue("3")
+
+
 public class Company  extends User {
 	
 	private String  adresse;
@@ -33,8 +37,9 @@ public class Company  extends User {
 	
 	
 	@ManyToMany(mappedBy = "companies")
+	@JsonIgnoreProperties("companies")
+	private Set <Etudiant> etudiants = new HashSet<>(); 
 	
-	Set<Etudiant> etudiants;
 	
 	
 	
