@@ -38,7 +38,7 @@ public class User {
   
   protected String name;
   
-  @JsonIgnore
+  
   protected String password;
   
   

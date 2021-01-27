@@ -3,6 +3,7 @@ package restapi.controller;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,10 +27,11 @@ import restapi.repository.CompanyRepository;
 @PreAuthorize("hasRole('ADMIN') or hasRole('ETUDIANT') or hasRole('COMPANY') ")
 public class CompanyController {	
 
-	@Autowired
+@Autowired
 private final CompanyRepository repository ;
 
- 
+	@Autowired
+	PasswordEncoder encoder;
 
 
   public CompanyController(CompanyRepository repository) {
@@ -65,7 +67,11 @@ private final CompanyRepository repository ;
     return repository.findById(id)
       .map(employee -> {
         employee.setName(newEmployee.getName());
-        employee.setPassword(newEmployee.getPassword());
+        employee.setUsername(newEmployee.getUsername());
+        employee.setAdresse( newEmployee.getAdresse());
+        employee.setType( newEmployee.getType());
+        employee.setTelephone(newEmployee.getTelephone() );
+        employee.setPassword( encoder.encode(newEmployee.getPassword()) );
         employee.setEmail(newEmployee.getEmail());
         return repository.save(employee);
       })

@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,6 +37,9 @@ public class EtudiantController {
 
 @Autowired
   private final EtudiantRepository repository;
+
+@Autowired
+PasswordEncoder encoder;
 
 @Autowired
 private final CompanyRepository crepository;
@@ -117,8 +121,12 @@ private final CompanyRepository crepository;
     return repository.findById(id)
       .map(employee -> {
         employee.setName(newEmployee.getName());
-        employee.setPassword(newEmployee.getPassword());
+        employee.setPassword(encoder.encode(newEmployee.getPassword()));
         employee.setEmail(newEmployee.getEmail());
+        employee.setAnnee( newEmployee.getAnnee()   );
+        employee.setTelephone(newEmployee.getTelephone());
+        employee.setFilliere(newEmployee.getFilliere());
+        
         return repository.save(employee);
       })
       .orElseGet(() -> {
