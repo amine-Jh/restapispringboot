@@ -2,8 +2,12 @@ package restapi.controller;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import restapi.exception.UserNotFoundException;
 import restapi.model.Company;
-
+import restapi.model.Etudiant;
+import restapi.payload.MessageResponse;
 import restapi.repository.CompanyRepository;
 
 
@@ -62,23 +67,33 @@ private final CompanyRepository repository ;
   }
 
   @PutMapping("/companies/{id}")
-  Company replaceCompany(@RequestBody Company newEmployee, @PathVariable Long id) {
-
-    return repository.findById(id)
-      .map(employee -> {
-        employee.setName(newEmployee.getName());
-        employee.setUsername(newEmployee.getUsername());
-        employee.setAdresse( newEmployee.getAdresse());
-        employee.setType( newEmployee.getType());
-        employee.setTelephone(newEmployee.getTelephone() );
-        employee.setPassword( encoder.encode(newEmployee.getPassword()) );
-        employee.setEmail(newEmployee.getEmail());
-        return repository.save(employee);
-      })
-      .orElseGet(() -> {
-        newEmployee.setId(id);
-        return repository.save(newEmployee);
-      });
+  public ResponseEntity<?> updateCompany(
+      @PathVariable(value = "id") Long userId, @Validated @RequestBody Company newEmployee)
+      throws ConfigDataResourceNotFoundException {
+	  
+ 	 BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+ 	
+    Company employee =
+        repository
+            .findById(userId)
+            .orElseThrow(() -> new UserNotFoundException(userId));
+    	String password=employee.getPassword();
+    if(passwordEncoder.matches(newEmployee.getPassword(), password)) {
+		employee.setName(newEmployee.getName());
+		  /* employee.setPassword(encoder.encode(newEmployee.getPassword()));*/
+    employee.setEmail(newEmployee.getEmail());
+    employee.setType( newEmployee.getType()   );
+    employee.setTelephone(newEmployee.getTelephone());
+    employee.setAdresse(newEmployee.getAdresse());
+    
+	 }
+    else {
+    	return ResponseEntity.ok(  new MessageResponse("mot de passe incorrect")  );
+    }
+    
+    final Company updatedUser = repository.save(employee);
+    return ResponseEntity.ok(updatedUser);
+    
   }
 
   @DeleteMapping("/companies/{id}")
