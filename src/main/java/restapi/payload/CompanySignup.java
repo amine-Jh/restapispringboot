@@ -2,6 +2,8 @@ package restapi.payload;
 
 import java.util.Set;
 
+import restapi.model.PhotoInfo;
+
 public class CompanySignup {
 
 	
@@ -12,7 +14,17 @@ public class CompanySignup {
 	    
 	    private String telephone;
 	    
-	    public String getTelephone() {
+	    private PhotoInfo photo;
+	    
+	    public PhotoInfo getPhoto() {
+			return photo;
+		}
+
+		public void setPhoto(PhotoInfo photo) {
+			this.photo = photo;
+		}
+
+		public String getTelephone() {
 			return telephone;
 		}
 

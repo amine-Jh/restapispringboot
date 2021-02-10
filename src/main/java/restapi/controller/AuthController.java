@@ -2,6 +2,7 @@ package restapi.controller;
 
 
 
+import restapi.details.PhotoStorageService;
 import restapi.details.UserDetailsImpl;
 import restapi.model.Company;
 import restapi.model.Etudiant;
@@ -36,16 +37,24 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/auth")
+
+@RequestMapping(value="/api/auth")
 public class AuthController {
 	@Autowired
 	AuthenticationManager authenticationManager;
+	  @Autowired
+	  PhotoStorageService storageService;
 
+	
+	
+	
+	
 	@Autowired
 	UserRepository userRepository;
 	
@@ -75,7 +84,10 @@ public class AuthController {
 	@PreAuthorize("permitAll()")
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
+		
+		
 		 if (!userRepository.existsByUsername(loginRequest.getUsername())) {
+			 
 			return ResponseEntity
 					.ok()
 					.body(new MessageResponse(" cet utilisateur n'existe pas "));
@@ -107,7 +119,7 @@ public class AuthController {
 		
 	}
 
-	@PostMapping("/signup")
+/**	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@RequestBody SignupRequest signUpRequest) {
 		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
 			return ResponseEntity
@@ -123,7 +135,7 @@ public class AuthController {
 
 		// Create new user's account
 		User user = new User(signUpRequest.getName(),encoder.encode(signUpRequest.getPassword()) , 
-							 signUpRequest.getEmail(),signUpRequest.getUsername());
+							 signUpRequest.getEmail(),signUpRequest.getUsername(), );
 
 		userRepository.save(user);
 		return ResponseEntity
@@ -131,7 +143,7 @@ public class AuthController {
 				.body(new MessageResponse("Success : New User registred!")) ;  
 		
 		
-}
+}**/
 	
 	
 	@PostMapping("/signupStudent")
@@ -147,13 +159,14 @@ public class AuthController {
 					.ok()
 					.body(new MessageResponse("Error:  Email déja utilisé"));
 		}
-
+		  
 		// Create new Student's account
-		 Etudiant user= new Etudiant( signUpRequest.getName() , encoder.encode(signUpRequest.getPassword()) ,signUpRequest.getEmail(),
-				 signUpRequest.getFilliere() ,signUpRequest.getUsername(), signUpRequest.getAnnee(),signUpRequest.getTelephone()
+		 Etudiant user= new Etudiant(signUpRequest.getName() , encoder.encode(signUpRequest.getPassword()) ,signUpRequest.getEmail(),
+				 signUpRequest.getFilliere() ,signUpRequest.getUsername(), signUpRequest.getAnnee(),signUpRequest.getTelephone(), signUpRequest.getPhoto()
+				
 				 );
 		 
-		 Set<String> strRoles = signUpRequest.getRoles();
+		    Set<String> strRoles = signUpRequest.getRoles();
 			Set<Role> roles = new HashSet<>();
 			
 			
@@ -219,7 +232,7 @@ public class AuthController {
 }
 	
 	@PostMapping("/signupCompany")
-	public ResponseEntity<?> registerCompany(@RequestBody CompanySignup signUpRequest) {
+	public ResponseEntity<?> registerCompany(@RequestBody CompanySignup signUpRequest    ) {
 		
 		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
 			return ResponseEntity
@@ -231,10 +244,13 @@ public class AuthController {
 					.ok()
 					.body(new MessageResponse("Error:  Email déja utilisé"));
 		}
-
+				
+	
 		// Create new Company account 
 		 Company user= new Company(signUpRequest.getName(),encoder.encode(signUpRequest.getPassword()), signUpRequest.getEmail(), signUpRequest.getUsername() ,
-				 signUpRequest.getAdresse()   , signUpRequest.getType(), signUpRequest.getTelephone());
+				 signUpRequest.getAdresse()   , signUpRequest.getType(), signUpRequest.getTelephone()
+				 ,signUpRequest.getPhoto()
+				 );
 		 
 		 
 		 Set<String> strRoles = signUpRequest.getRoles();

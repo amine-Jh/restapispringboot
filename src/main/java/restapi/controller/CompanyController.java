@@ -31,6 +31,8 @@ import restapi.repository.CompanyRepository;
 
 @PreAuthorize("hasRole('ADMIN') or hasRole('ETUDIANT') or hasRole('COMPANY') ")
 public class CompanyController {	
+	
+	
 
 @Autowired
 private final CompanyRepository repository ;
@@ -53,6 +55,7 @@ private final CompanyRepository repository ;
 
   @PostMapping("/companies")
   Company newCompany(@RequestBody Company newCompany) {
+	  
 	  
     return repository.save(newCompany);
   }

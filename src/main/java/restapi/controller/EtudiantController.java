@@ -2,16 +2,12 @@ package restapi.controller;
 
 
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-
-import org.aspectj.bridge.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.encrypt.Encryptors;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -23,18 +19,14 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.sun.mail.iap.Response;
-
 import restapi.exception.UserNotFoundException;
 import restapi.model.Company;
 import restapi.model.Etudiant;
 import restapi.model.User;
 import restapi.payload.MessageResponse;
-import restapi.payload.PostuleRequest;
 import restapi.repository.CompanyRepository;
 import restapi.repository.EtudiantRepository;
-import restapi.repository.UserRepository;
+
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController

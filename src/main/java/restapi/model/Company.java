@@ -1,23 +1,15 @@
 package restapi.model;
 
-
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 
 
 @Entity
@@ -81,8 +73,8 @@ public class Company  extends User {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Company(String name, String password, String email, String username ,String adress, String type , String telephone) {
-		super(name, password, email, username);
+	public Company(String name, String password, String email, String username ,String adress, String type , String telephone ,PhotoInfo photo ) {
+		super(name, password, email, username,photo);
 		// TODO Auto-generated constructor stub
 		this.setAdresse(adress);
 		this.setType(type);

@@ -1,6 +1,8 @@
 package restapi.payload;
 
 import java.util.Set;
+
+import restapi.model.PhotoInfo;
 public class StudentSignup {
 
 	
@@ -10,10 +12,21 @@ public class StudentSignup {
     private String annee;
     
     private String telephone;
+    private String password;
     
     Set<String> roles ;
-    
-   
+    private String filliere;
+   private String email;
+       private String name;
+      private PhotoInfo photo;
+
+	public PhotoInfo getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(PhotoInfo photo) {
+		this.photo = photo;
+	}
 
 	public Set<String> getRoles() {
 		return roles;
@@ -31,7 +44,7 @@ public class StudentSignup {
 		this.telephone = telephone;
 	}
 
-	private String filliere;
+	
    
    
     public String getAnnee() {
@@ -50,10 +63,7 @@ public class StudentSignup {
 		this.filliere = filliere;
 	}
 
-	private String email;
-    
-    
-    private String name;
+	
     
     public String getName() {
 		return name;
@@ -63,7 +73,7 @@ public class StudentSignup {
 		this.name = name;
 	}
 
-	private String password;
+	
   
     public String getUsername() {
         return username;

@@ -1,7 +1,7 @@
 package restapi.model;
 
 
-import java.util.HashSet;
+
 import java.util.Objects;
 
 import javax.persistence.DiscriminatorValue;
@@ -10,13 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
 import java.util.Set;
 
 
@@ -62,11 +56,12 @@ public class Etudiant extends User {
 	
 
 
-	public Etudiant(String name, String password, String email, String filliere,String username,String annee,String telephone) {
-		super(name, password, email,username);
+	public Etudiant(String name, String password, String email, String filliere,String username,String annee,String telephone ,PhotoInfo photo) {
+		super(name, password, email,username,photo);
 		this.setFilliere(filliere);
 		this.setAnnee(annee);
 		this.setTelephone(telephone);
+		
 		
 		// TODO Auto-generated constructor stub
 	}

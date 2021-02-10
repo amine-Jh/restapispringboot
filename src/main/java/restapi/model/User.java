@@ -3,6 +3,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.DiscriminatorValue;
@@ -16,10 +17,8 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 
 
 
@@ -32,17 +31,27 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class User {
   
-  protected @Id @GeneratedValue(strategy = GenerationType.IDENTITY)  Long id;
-  
- 
+  public PhotoInfo getPhoto() {
+		return photo;
+	}
+
+
+
+	public void setPhoto(PhotoInfo photo) {
+		this.photo = photo;
+	}
+
+protected @Id @GeneratedValue(strategy = GenerationType.IDENTITY)  Long id;
   
   protected String name;
-  
-  
   protected String password;
   
+  @OneToOne(cascade = CascadeType.MERGE)
+  @JoinColumn(name = "photo_id", referencedColumnName = "id")
+  private PhotoInfo photo ;
   
-  @ManyToMany(fetch = FetchType.LAZY)
+  
+    @ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(	name = "users_roles", 
 				joinColumns = @JoinColumn(name = "user_id"), 
 				inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -94,14 +103,18 @@ public void setUsername(String username) {
   public User () {}
 
 
-  public User( String name, String password, String email,String username) {
+  public User( String name, String password, String email,String username, PhotoInfo photo ) {
 	
 	this.name = name;
 	this.password = password;
 	this.email = email;
 	this.username=username;
+	this.photo=photo;
+	
+	
 	
 }
+
 
 
 

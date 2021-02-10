@@ -1,14 +1,26 @@
 package restapi.payload;
 
- 
+import org.springframework.web.multipart.MultipartFile;
+
 public class SignupRequest {
  
     
     private String username;
  
    
+    private MultipartFile photo;
    
-    private String email;
+    
+
+	public MultipartFile getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(MultipartFile photo) {
+		this.photo = photo;
+	}
+
+	private String email;
     
     
     private String name;
