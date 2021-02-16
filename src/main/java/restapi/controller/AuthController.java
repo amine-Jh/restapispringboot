@@ -85,7 +85,7 @@ public class AuthController {
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
 		
-		
+		System.out.println(  ERole.ROLE_COMPANY );
 		 if (!userRepository.existsByUsername(loginRequest.getUsername())) {
 			 
 			return ResponseEntity
@@ -169,11 +169,6 @@ public class AuthController {
 		    Set<String> strRoles = signUpRequest.getRoles();
 			Set<Role> roles = new HashSet<>();
 			
-			
-		
-			
-			
-			
 			if (strRoles == null) {
 				Role userRole = roleRepository.findByName(ERole.ROLE_ETUDIANT)
 						.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
@@ -183,19 +178,19 @@ public class AuthController {
 					switch (role) {
 					case "admin":
 						Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
-								.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+								.orElseThrow(() -> new RuntimeException("Error: Role ////// is not found."));
 						roles.add(adminRole);
 
 						break;
 					case "company":
 						Role CompanyRole = roleRepository.findByName(ERole.ROLE_COMPANY)
-								.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+								.orElseThrow(() -> new RuntimeException("Error: Role //// is not found."));
 						roles.add(CompanyRole);
 
 						break;
 					default:
 						Role EtudiantRole = roleRepository.findByName(ERole.ROLE_ETUDIANT)
-								.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+								.orElseThrow(() -> new RuntimeException("Error: Role //// is not found."));
 						roles.add(EtudiantRole);
 					}
 				});
@@ -306,16 +301,4 @@ public class AuthController {
 		
 		
 }
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
