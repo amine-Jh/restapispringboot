@@ -1,10 +1,11 @@
 # restapispringboot
-simple api
+This is a REST web service 
 
-###IDE
+# IDE
 the project run  on eclipse or intelij
-install  tomcat 
 
-###SQL data
+# Tomcat server
+
+# SQL data base
 
 provide a sql database with xampp for example
