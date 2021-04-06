@@ -6,6 +6,8 @@ provide a sql database with xampp for example
 install the tomcat server
 # IDE
 the project run  on eclipse or intelij
+# RUN
+run mvn ....
 
 
 
